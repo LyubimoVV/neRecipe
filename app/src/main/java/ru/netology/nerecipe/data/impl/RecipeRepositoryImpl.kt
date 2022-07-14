@@ -32,6 +32,8 @@ class RecipeRepositoryImpl(
 
     override fun updateListOnMove(from: Int, to: Int) {
 
+        dao.updateFrom(from, to)
+        dao.updateTo(from, to)
     }
 
     override fun deleteStep(step: Step) {

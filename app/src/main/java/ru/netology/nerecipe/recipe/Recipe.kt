@@ -9,5 +9,6 @@ data class Recipe(
     val title: String,
     val category: String,
     val content: List<Step>?,
-    val isFavorite: Boolean = false
+    val isFavorite: Boolean = false,
+    val indexPosition: Long
 )

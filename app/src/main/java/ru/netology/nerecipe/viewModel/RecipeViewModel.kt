@@ -52,7 +52,8 @@ class RecipeViewModel(
             author = "Vladimir",
             category = category,
             content = content,
-            title = title
+            title = title,
+            indexPosition = RecipeRepository.NEW_RECIPE_ID
         )
         repository.save(recipeForSave)
         currentRecipe.value = null

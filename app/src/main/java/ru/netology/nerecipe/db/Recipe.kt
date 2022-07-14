@@ -11,7 +11,8 @@ internal fun RecipeWithSteps.toRecipe() = Recipe(
     content = step.map {
         it.toStep()
     },
-    isFavorite = recipe.isFavorite
+    isFavorite = recipe.isFavorite,
+    indexPosition = recipe.id
 )
 
 internal fun Recipe.toEntity() = RecipeEntity(
@@ -19,7 +20,8 @@ internal fun Recipe.toEntity() = RecipeEntity(
     author = author,
     title = title,
     category = category,
-    isFavorite = isFavorite
+    isFavorite = isFavorite,
+    indexNumber = indexPosition
 )
 
 internal fun StepEntity.toStep() = Step(

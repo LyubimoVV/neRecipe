@@ -40,9 +40,12 @@ class FeedFragment : Fragment() {
                 val from = viewHolder.absoluteAdapterPosition
                 val to = target.absoluteAdapterPosition
                 adapter.moveItem(from, to)
+                //viewModel.updateListOnMove(from.toLong(), to.toLong())
+
                 adapter.notifyItemMoved(from, to)
 
-                viewModel.updateListOnMove(from, to)
+                viewModel.updateListOnMove(adapter.getIndexFrom(from), adapter.getIndexTo(to))
+
 
                 return true
             }

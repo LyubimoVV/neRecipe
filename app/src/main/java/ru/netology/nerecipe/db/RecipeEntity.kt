@@ -14,6 +14,8 @@ class RecipeEntity(
     @ColumnInfo(name = "category")
     val category: String,
     @ColumnInfo(name = "isFavorite")
-    val isFavorite: Boolean = false
+    val isFavorite: Boolean = false,
+    @ColumnInfo(name = "indexNumber")
+    val indexNumber: Long
 
 )

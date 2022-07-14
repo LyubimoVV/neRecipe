@@ -4,16 +4,30 @@ import androidx.lifecycle.LiveData
 import androidx.room.Dao
 import androidx.room.Insert
 import androidx.room.Query
+import androidx.room.Transaction
 
 
 @Dao
 interface RecipeDao {
 
-    @Query("SELECT * FROM recipes ORDER BY id DESC")
+    @Query("SELECT * FROM recipes ORDER BY indexNumber DESC")
     fun getAll(): LiveData<List<RecipeWithSteps>>
 
     @Insert
-    fun insert(recipe: RecipeEntity)
+    fun inserted(recipe: RecipeEntity)
+
+    @Query(
+        "UPDATE recipes SET " +
+                "indexNumber = id " +
+                "WHERE id = :id"
+    )
+    fun inserting(id: Long){}
+
+    @Transaction
+    fun insert(recipe: RecipeEntity) {
+        inserted(recipe)
+        inserting(recipe.id)
+    }
 
     @Insert
     fun insertStep(step: StepEntity)
@@ -31,6 +45,32 @@ interface RecipeDao {
         title: String,
         category: String
     )
+
+    @Query(
+        "UPDATE recipes SET " +
+                "indexNumber = :indexFrom " +
+                "WHERE indexNumber = :indexTo"
+    )
+    fun updateTo(
+        indexFrom: Int,
+        indexTo: Int
+    )
+
+    @Query(
+        "UPDATE recipes SET " +
+                "indexNumber = :indexTo " +
+                "WHERE indexNumber = :indexFrom"
+    )
+    fun updateFrom(
+        indexFrom: Int,
+        indexTo: Int
+    )
+
+//    @Transaction
+//    fun updateList(indexFrom: Long, indexTo: Long) {
+//        updateTo(indexFrom, indexTo)
+//        updateFrom(indexFrom, indexTo)
+//    }
 
     @Query(
         "UPDATE steps SET " +
