@@ -76,15 +76,23 @@ internal class RecipesAdapter(
         } else {
             list.add(to - 1, fromLocation)
         }
-    }
-
-    fun getIndexFrom(from: Int): Int {
-        return currentList.toMutableList()[from].indexPosition.toInt()
 
     }
 
-    fun getIndexTo(to: Int): Int {
-        return currentList.toMutableList()[to].indexPosition.toInt()
+    fun getIndexFrom(from: Int): Long {
+        return currentList.toMutableList()[from].indexPosition
+    }
+
+    fun getIdFrom(from: Int): Long {
+        return currentList.toMutableList()[from].id
+    }
+
+    fun getIndexTo(to: Int): Long {
+        return currentList.toMutableList()[to].indexPosition
+    }
+
+    fun getIdTo(to: Int): Long {
+        return currentList.toMutableList()[to].id
     }
 
 }

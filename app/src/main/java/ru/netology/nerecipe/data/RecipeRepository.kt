@@ -8,13 +8,15 @@ interface RecipeRepository {
 
     val data: LiveData<List<Recipe>>
 
+    fun getNextIndexId(): Long
+
     fun addFavorite(recipeId: Long)
 
     fun delete(recipeId: Long)
 
     fun save(recipe: Recipe)
 
-    fun updateListOnMove(from: Int, to: Int)
+    fun updateListOnMove(from: Long, to: Long, fromId: Long, toId: Long)
 
     fun deleteStep(step: Step)
 

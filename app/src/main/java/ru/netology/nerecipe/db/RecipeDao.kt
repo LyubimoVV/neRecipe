@@ -14,19 +14,46 @@ interface RecipeDao {
     fun getAll(): LiveData<List<RecipeWithSteps>>
 
     @Insert
-    fun inserted(recipe: RecipeEntity)
+    fun insert(recipe: RecipeEntity)
 
     @Query(
         "UPDATE recipes SET " +
-                "indexNumber = id " +
-                "WHERE id = :id"
+                "indexNumber = indexNumber + 1 " +
+                "WHERE id = :fromId"
     )
-    fun inserting(id: Long){}
+    fun updateListItemMoveUpFirst(fromId: Long)
+
+    @Query(
+        "UPDATE recipes SET " +
+                "indexNumber = indexNumber - 1 " +
+                "WHERE id = :toId"
+    )
+    fun updateListItemMoveUpSecond(toId: Long)
 
     @Transaction
-    fun insert(recipe: RecipeEntity) {
-        inserted(recipe)
-        inserting(recipe.id)
+    fun updateItemMoveUp(fromId: Long, toId: Long) {
+        updateListItemMoveUpFirst(fromId)
+        updateListItemMoveUpSecond(toId)
+    }
+
+    @Query(
+        "UPDATE recipes SET " +
+                "indexNumber = indexNumber - 1 " +
+                "WHERE id = :fromId"
+    )
+    fun updateListItemMoveDownFirst(fromId: Long)
+
+    @Query(
+        "UPDATE recipes SET " +
+                "indexNumber = indexNumber + 1 " +
+                "WHERE id = :toId"
+    )
+    fun updateListItemMoveDownSecond(toId: Long)
+
+    @Transaction
+    fun updateItemMoveDown(fromId: Long, toId: Long) {
+        updateListItemMoveDownFirst(fromId)
+        updateListItemMoveDownSecond(toId)
     }
 
     @Insert
@@ -45,32 +72,6 @@ interface RecipeDao {
         title: String,
         category: String
     )
-
-    @Query(
-        "UPDATE recipes SET " +
-                "indexNumber = :indexFrom " +
-                "WHERE indexNumber = :indexTo"
-    )
-    fun updateTo(
-        indexFrom: Int,
-        indexTo: Int
-    )
-
-    @Query(
-        "UPDATE recipes SET " +
-                "indexNumber = :indexTo " +
-                "WHERE indexNumber = :indexFrom"
-    )
-    fun updateFrom(
-        indexFrom: Int,
-        indexTo: Int
-    )
-
-//    @Transaction
-//    fun updateList(indexFrom: Long, indexTo: Long) {
-//        updateTo(indexFrom, indexTo)
-//        updateFrom(indexFrom, indexTo)
-//    }
 
     @Query(
         "UPDATE steps SET " +

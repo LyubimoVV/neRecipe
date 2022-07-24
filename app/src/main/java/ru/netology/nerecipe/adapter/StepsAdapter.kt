@@ -1,8 +1,10 @@
 package ru.netology.nerecipe.adapter
 
+import android.net.Uri
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import android.widget.PopupMenu
+import androidx.core.net.toUri
 import androidx.core.view.isVisible
 import androidx.recyclerview.widget.AsyncListDiffer
 import androidx.recyclerview.widget.DiffUtil
@@ -66,6 +68,9 @@ internal class StepsAdapter(
             with(binding) {
                 stepContent.text = step.stepText
                 stepPicture.isVisible = step.picture.isNotBlank()
+                if (step.picture.isNotBlank()) stepPicture.setImageURI(
+                    step.picture.toUri()
+                )
                 stepNumber.text = (absoluteAdapterPosition + 1).toString()
 
             }
@@ -77,7 +82,6 @@ internal class StepsAdapter(
 
         override fun areItemsTheSame(oldItem: Step, newItem: Step) =
             oldItem == newItem
-
 
         override fun areContentsTheSame(oldItem: Step, newItem: Step) =
             oldItem.stepText == newItem.stepText

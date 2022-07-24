@@ -39,14 +39,16 @@ class FeedFragment : Fragment() {
                 val adapter = recyclerView.adapter as RecipesAdapter
                 val from = viewHolder.absoluteAdapterPosition
                 val to = target.absoluteAdapterPosition
-                adapter.moveItem(from, to)
-                //viewModel.updateListOnMove(from.toLong(), to.toLong())
 
+                adapter.moveItem(from, to)
                 adapter.notifyItemMoved(from, to)
 
-                viewModel.updateListOnMove(adapter.getIndexFrom(from), adapter.getIndexTo(to))
-
-
+                viewModel.updateListOnMove(
+                    adapter.getIndexFrom(from),
+                    adapter.getIndexTo(to),
+                    adapter.getIdFrom(from),
+                    adapter.getIdTo(to)
+                )
                 return true
             }
 
