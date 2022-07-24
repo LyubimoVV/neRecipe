@@ -25,6 +25,7 @@
     <string name="empty_state_text_favorite">В избранном пусто</string>
     <string name="edit_text_step">Шаг для приготовления блюда…</string>
     <string name="text_add_edit_step">Введите описание шага для приготовления блюда:</string>
+    <string name="add_picture">Добавить картинку :</string>
     <string-array name="category_names">
         <item>Европейская</item>
         <item>Азиатская</item>

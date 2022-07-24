@@ -12,7 +12,7 @@ internal fun RecipeWithSteps.toRecipe() = Recipe(
         it.toStep()
     },
     isFavorite = recipe.isFavorite,
-    indexPosition = recipe.id
+    indexPosition = recipe.indexNumber
 )
 
 internal fun Recipe.toEntity() = RecipeEntity(

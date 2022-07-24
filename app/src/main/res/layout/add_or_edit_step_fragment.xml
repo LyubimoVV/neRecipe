@@ -14,24 +14,45 @@
             android:id="@+id/textAddEditStep"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            android:textSize="20sp"
             android:layout_margin="@dimen/common_spacing"
-            android:text="@string/text_add_edit_step"/>
+            android:text="@string/text_add_edit_step"
+            android:textSize="20sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
         <androidx.appcompat.widget.AppCompatEditText
-            android:layout_margin="@dimen/common_spacing"
             android:id="@+id/edit"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_margin="@dimen/common_spacing"
             android:background="@android:color/transparent"
             android:gravity="start|top"
-            android:inputType="textMultiLine"
             android:hint="@string/edit_text_step"
-            app:layout_constraintTop_toBottomOf="@id/textAddEditStep"
-            app:layout_constraintStart_toStartOf="parent"/>
+            android:inputType="textMultiLine"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/textAddEditStep" />
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/addPicture"
+            style="@style/Widget.AppTheme.AddPicture"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/common_spacing"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/edit" />
+
+        <TextView
+            android:id="@+id/textAddImageForStep"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/common_spacing"
+            android:text="@string/add_picture"
+            android:textSize="20sp"
+            app:layout_constraintEnd_toStartOf="@id/addPicture"
+            app:layout_constraintTop_toBottomOf="@id/edit"
+            app:layout_constraintTop_toTopOf="@id/addPicture"
+            app:layout_constraintBottom_toBottomOf="@id/addPicture"/>
     </androidx.constraintlayout.widget.ConstraintLayout>
 
     <com.google.android.material.bottomappbar.BottomAppBar
