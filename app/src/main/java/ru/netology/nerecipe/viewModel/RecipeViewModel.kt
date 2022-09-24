@@ -90,9 +90,6 @@ class RecipeViewModel(
         navigateToStepAddScreenEvent.call()
     }
 
-    fun updateListOnMove(from: Long, to: Long, fromId: Long, toId: Long) {
-        repository.updateListOnMove(from, to, fromId, toId)
-    }
 
     fun filterRecipeByFavorite(recipes: List<Recipe>): List<Recipe> {
         return recipes.filter { it.isFavorite }

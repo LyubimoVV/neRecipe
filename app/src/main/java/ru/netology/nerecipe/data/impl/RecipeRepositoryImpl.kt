@@ -36,14 +36,6 @@ class RecipeRepositoryImpl(
         else dao.update(recipe.id, recipe.author, recipe.title, recipe.category)
     }
 
-    override fun updateListOnMove(from: Long, to: Long, fromId: Long, toId: Long) {
-        if (to < from) {
-            dao.updateItemMoveDown(fromId, toId)
-        } else {
-            dao.updateItemMoveUp(fromId, toId)
-        }
-    }
-
     override fun deleteStep(step: Step) {
         dao.deleteStep(step.idStep)
     }

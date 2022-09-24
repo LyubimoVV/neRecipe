@@ -16,46 +16,6 @@ interface RecipeDao {
     @Insert
     fun insert(recipe: RecipeEntity)
 
-    @Query(
-        "UPDATE recipes SET " +
-                "indexNumber = indexNumber + 1 " +
-                "WHERE id = :fromId"
-    )
-    fun updateListItemMoveUpFirst(fromId: Long)
-
-    @Query(
-        "UPDATE recipes SET " +
-                "indexNumber = indexNumber - 1 " +
-                "WHERE id = :toId"
-    )
-    fun updateListItemMoveUpSecond(toId: Long)
-
-    @Transaction
-    fun updateItemMoveUp(fromId: Long, toId: Long) {
-        updateListItemMoveUpFirst(fromId)
-        updateListItemMoveUpSecond(toId)
-    }
-
-    @Query(
-        "UPDATE recipes SET " +
-                "indexNumber = indexNumber - 1 " +
-                "WHERE id = :fromId"
-    )
-    fun updateListItemMoveDownFirst(fromId: Long)
-
-    @Query(
-        "UPDATE recipes SET " +
-                "indexNumber = indexNumber + 1 " +
-                "WHERE id = :toId"
-    )
-    fun updateListItemMoveDownSecond(toId: Long)
-
-    @Transaction
-    fun updateItemMoveDown(fromId: Long, toId: Long) {
-        updateListItemMoveDownFirst(fromId)
-        updateListItemMoveDownSecond(toId)
-    }
-
     @Insert
     fun insertStep(step: StepEntity)
 

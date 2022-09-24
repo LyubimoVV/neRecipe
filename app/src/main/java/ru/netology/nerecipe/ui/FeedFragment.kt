@@ -43,12 +43,6 @@ class FeedFragment : Fragment() {
                 adapter.moveItem(from, to)
                 adapter.notifyItemMoved(from, to)
 
-                viewModel.updateListOnMove(
-                    adapter.getIndexFrom(from),
-                    adapter.getIndexTo(to),
-                    adapter.getIdFrom(from),
-                    adapter.getIdTo(to)
-                )
                 return true
             }
 

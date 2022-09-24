@@ -16,8 +16,6 @@ interface RecipeRepository {
 
     fun save(recipe: Recipe)
 
-    fun updateListOnMove(from: Long, to: Long, fromId: Long, toId: Long)
-
     fun deleteStep(step: Step)
 
     fun saveStep(step: Step)
