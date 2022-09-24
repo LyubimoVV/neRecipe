@@ -66,12 +66,6 @@ interface RecipeDao {
         indexTo: Int
     )
 
-//    @Transaction
-//    fun updateList(indexFrom: Long, indexTo: Long) {
-//        updateTo(indexFrom, indexTo)
-//        updateFrom(indexFrom, indexTo)
-//    }
-
     @Query(
         "UPDATE steps SET " +
                 "stepText = :stepText, " +
