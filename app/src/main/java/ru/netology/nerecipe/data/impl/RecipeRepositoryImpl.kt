@@ -13,8 +13,14 @@ class RecipeRepositoryImpl(
     private val dao: RecipeDao
 ) : RecipeRepository {
 
+    private var nextIndexId: Long = 1
+
     override val data = dao.getAll().map { entities ->
         entities.map { it.toRecipe() }
+    }
+
+    override fun getNextIndexId(): Long {
+        return nextIndexId++
     }
 
     override fun addFavorite(recipeId: Long) {
@@ -30,10 +36,12 @@ class RecipeRepositoryImpl(
         else dao.update(recipe.id, recipe.author, recipe.title, recipe.category)
     }
 
-    override fun updateListOnMove(from: Int, to: Int) {
-
-        dao.updateFrom(from, to)
-        dao.updateTo(from, to)
+    override fun updateListOnMove(from: Long, to: Long, fromId: Long, toId: Long) {
+        if (to < from) {
+            dao.updateItemMoveDown(fromId, toId)
+        } else {
+            dao.updateItemMoveUp(fromId, toId)
+        }
     }
 
     override fun deleteStep(step: Step) {
@@ -45,7 +53,8 @@ class RecipeRepositoryImpl(
         else dao.updateStep(
             step.idStep,
             step.idRecipe,
-            step.stepText, step.picture
+            step.stepText,
+            step.picture
         )
     }
 

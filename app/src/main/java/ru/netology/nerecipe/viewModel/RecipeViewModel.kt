@@ -31,6 +31,8 @@ class RecipeViewModel(
     private val currentRecipe = MutableLiveData<Recipe?>(null)
     private val currentStep = MutableLiveData<Step?>(null)
 
+    val currentImageStep = MutableLiveData<String>("")
+
     private val filters = MutableLiveData<MutableSet<String>?>(mutableSetOf())
     var filterResult = Transformations.switchMap(filters) { filter ->
         repository.getFilteredList(filter)
@@ -53,7 +55,7 @@ class RecipeViewModel(
             category = category,
             content = content,
             title = title,
-            indexPosition = RecipeRepository.NEW_RECIPE_ID
+            indexPosition = repository.getNextIndexId()
         )
         repository.save(recipeForSave)
         currentRecipe.value = null
@@ -63,18 +65,20 @@ class RecipeViewModel(
         if (textStep.isBlank()) return
 
         val stepForSave = currentStep.value?.copy(
-            stepText = textStep
+            stepText = textStep,
+            picture = currentImageStep.value.toString()
         ) ?: Step(
             idStep = RecipeRepository.NEW_STEP_ID,
             idRecipe = currentRecipe.value?.id ?: 0,
             stepText = textStep,
-            picture = ""
+            picture = currentImageStep.value.toString()
         )
 
         repository.saveStep(stepForSave)
 
         currentStep.value = null
         currentRecipe.value = null
+        currentImageStep.value = ""
     }
 
     fun onAddClicked() {
@@ -86,8 +90,8 @@ class RecipeViewModel(
         navigateToStepAddScreenEvent.call()
     }
 
-    fun updateListOnMove(from: Int, to: Int) {
-        repository.updateListOnMove(from, to)
+    fun updateListOnMove(from: Long, to: Long, fromId: Long, toId: Long) {
+        repository.updateListOnMove(from, to, fromId, toId)
     }
 
     fun filterRecipeByFavorite(recipes: List<Recipe>): List<Recipe> {
